@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AndroidShop</string>
+    <string name="signUp">Sign up</string>
+    <string name="signIn">Sign in</string>
+    <string name="name">name</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="haveAccount">Already have an account?</string>
+    <string name="noAccount">Don\'t have nn account?</string>
+
+</resources>
