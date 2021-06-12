@@ -10,5 +10,8 @@
     <string name="shoesDiscount">SHOES DISCOUNTS</string>
     <string name="womenDiscount">WOMEN DISCOUNTS</string>
     <string name="christmasDiscount">CHRISTMAS DISCOUNTS</string>
+    <string name="template">template</string>
+    <string name="categories">Categories</string>
+    <string name="category_description">category image</string>
 
 </resources>
