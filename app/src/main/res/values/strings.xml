@@ -7,5 +7,8 @@
     <string name="password">password</string>
     <string name="haveAccount">Already have an account?</string>
     <string name="noAccount">Don\'t have nn account?</string>
+    <string name="shoesDiscount">SHOES DISCOUNTS</string>
+    <string name="womenDiscount">WOMEN DISCOUNTS</string>
+    <string name="christmasDiscount">CHRISTMAS DISCOUNTS</string>
 
 </resources>
