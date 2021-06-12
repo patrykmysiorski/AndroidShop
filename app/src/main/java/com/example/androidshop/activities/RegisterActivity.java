@@ -2,7 +2,6 @@ package com.example.androidshop.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,7 +19,10 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        getSupportActionBar().hide();
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         if (firebaseAuth.getCurrentUser() != null) {
             startActivity(new Intent(RegisterActivity.this, MainActivity.class));
@@ -36,15 +38,15 @@ public class RegisterActivity extends AppCompatActivity {
         String email = emailField.getText().toString();
         String password = passwordField.getText().toString();
 
-        if(!fieldValidator(name, "name")) {
+        if (!fieldValidator(name, "name")) {
             return;
-        };
-        if(!fieldValidator(email, "email")) {
+        }
+        if (!fieldValidator(email, "email")) {
             return;
-        };
-        if(!fieldValidator(password, "password")) {
+        }
+        if (!fieldValidator(password, "password")) {
             return;
-        };
+        }
 
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, task -> {
             if (task.isSuccessful()) {
@@ -63,8 +65,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean fieldValidator(String field, String name) {
-        if (TextUtils.isEmpty(field)) {
-            Toast.makeText(this, "Enter " + name + "!", Toast.LENGTH_SHORT).show();
+        if (field.length() < 6) {
+            Toast.makeText(this, "Enter " + name + " with minimum 6 characters!", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
