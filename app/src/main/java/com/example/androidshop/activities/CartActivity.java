@@ -1,5 +1,6 @@
 package com.example.androidshop.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -45,6 +46,8 @@ public class CartActivity extends AppCompatActivity {
 
         Button buyNowButton = findViewById(R.id.buyNow);
 
+
+
         firebaseFirestore.collection("cart").document(firebaseAuth.getCurrentUser().getUid())
                 .collection("user").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -59,6 +62,12 @@ public class CartActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(CartActivity.this, "Error: " + task.getException().toString() + task.getException().toString(), Toast.LENGTH_SHORT).show();
             }
+        });
+
+
+        buyNowButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddressActivity.class);
+            startActivity(intent);
         });
     }
 }
