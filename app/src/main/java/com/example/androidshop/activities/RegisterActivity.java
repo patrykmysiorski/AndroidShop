@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void signUp(View view) {
-        EditText nameField = findViewById(R.id.name);
+        EditText nameField = findViewById(R.id.productName);
         EditText emailField = findViewById(R.id.email);
         EditText passwordField = findViewById(R.id.password);
         String name = nameField.getText().toString();

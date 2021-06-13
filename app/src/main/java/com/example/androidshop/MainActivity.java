@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,7 +13,9 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.androidshop.adapters.CategoryAdapter;
+import com.example.androidshop.adapters.ProductAdapter;
 import com.example.androidshop.models.Category;
+import com.example.androidshop.models.Product;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -30,7 +33,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         prepareImageSlider();
         prepareCategories();
+        getProducts();
 
+    }
+
+    private void getProducts() {
+        RecyclerView productRecycler = findViewById(R.id.productsRecycler);
+        productRecycler.setLayoutManager(new GridLayoutManager(this, 2));
+        List<Product> products = new ArrayList<>();
+        ProductAdapter productAdapter = new ProductAdapter(this, products);
+        productRecycler.setAdapter(productAdapter);
+
+        firestore.collection("products")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Product product = document.toObject(Product.class);
+                            products.add(product);
+                            products.add(product);
+                            productAdapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        Toast.makeText(this, "" + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     public void logout(View view) {
