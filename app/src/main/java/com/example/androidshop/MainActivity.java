@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         prepareImageSlider();
         prepareCategories();
         getProducts();
-
     }
 
     private void getProducts() {
@@ -50,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Product product = document.toObject(Product.class);
-                            products.add(product);
                             products.add(product);
                             productAdapter.notifyDataSetChanged();
                         }

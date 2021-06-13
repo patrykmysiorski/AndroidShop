@@ -1,6 +1,7 @@
 package com.example.androidshop.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.androidshop.R;
+import com.example.androidshop.activities.CategoryActivity;
 import com.example.androidshop.models.Category;
 
 import java.util.List;
@@ -36,6 +38,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         Category category = categoryList.get(position);
         Glide.with(context).load(category.getUrl()).into(holder.catImg);
         holder.catName.setText(category.getType());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, CategoryActivity.class);
+            intent.putExtra("type", category.getType());
+            context.startActivity(intent);
+        });
     }
 
     @Override
