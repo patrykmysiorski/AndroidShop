@@ -1,6 +1,8 @@
 package com.example.androidshop.models;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     String description;
     String name;
     String id;
