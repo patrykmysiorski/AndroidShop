@@ -1,8 +1,12 @@
 package com.example.androidshop.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidshop.R;
 import com.example.androidshop.adapters.CategoryOverviewAdapter;
 import com.example.androidshop.models.Product;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -49,6 +54,7 @@ public class CategoryActivity extends AppCompatActivity {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Product product = document.toObject(Product.class);
                         products.add(product);
+                        products.add(product);
                         categoryOverviewAdapter.notifyDataSetChanged();
                     }
                 } else {
@@ -56,5 +62,26 @@ public class CategoryActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menu_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this, RegisterActivity.class));
+            finish();
+
+        } else if (id == R.id.menu_my_cart) {
+            startActivity(new Intent(this, CartActivity.class));
+        }
+
+        return true;
     }
 }

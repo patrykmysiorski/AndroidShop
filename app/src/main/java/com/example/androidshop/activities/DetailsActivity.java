@@ -1,11 +1,15 @@
 package com.example.androidshop.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -22,7 +26,7 @@ public class DetailsActivity extends AppCompatActivity {
     Button addToCart;
     ImageView addItems, removeItems;
     int totalQuantity = 1;
-    Double totalPrice = 0.0;
+    int totalPrice = 0;
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -44,7 +48,6 @@ public class DetailsActivity extends AppCompatActivity {
         });
 
 
-
         ImageView image = findViewById(R.id.detailed_img);
         quantity = findViewById(R.id.quantity);
         name = findViewById(R.id.detailed_name);
@@ -59,17 +62,20 @@ public class DetailsActivity extends AppCompatActivity {
             name.setText(product.getName());
             description.setText(product.getDescription());
             price.setText(String.valueOf(product.getPrice()) + "$");
-            totalPrice = Double.parseDouble(product.getPrice()) * totalQuantity;
+            totalPrice = Integer.parseInt(product.getPrice()) * totalQuantity;
         }
 
         addToCart.setOnClickListener(v -> {
-            addToCart();
+            addToCart(product);
         });
 
         addItems.setOnClickListener(v -> {
             if (totalQuantity < 10) {
                 totalQuantity++;
                 quantity.setText(String.valueOf(totalQuantity));
+                if (product != null) {
+                    totalPrice = Integer.parseInt(product.getPrice()) * totalQuantity;
+                }
             }
         });
 
@@ -78,22 +84,44 @@ public class DetailsActivity extends AppCompatActivity {
                 totalQuantity--;
                 quantity.setText(String.valueOf(totalQuantity));
                 if (product != null) {
-                    totalPrice = Double.parseDouble(product.getPrice()) * totalQuantity;
+                    totalPrice = Integer.parseInt(product.getPrice()) * totalQuantity;
                 }
             }
         });
     }
 
-    private void addToCart() {
+    private void addToCart(Product product) {
         HashMap<String, Object> cartMap = new HashMap<>();
-        cartMap.put("productName", name.getText().toString());
-        cartMap.put("productPrice", price.getText().toString());
+        cartMap.put("productName", product.getName());
+        cartMap.put("productPrice", product.getPrice());
         cartMap.put("totalPrice", String.valueOf(totalPrice));
         cartMap.put("totalQuantity", quantity.getText().toString());
+        cartMap.put("url", product.getImageUrl());
 
         firebaseFirestore.collection("cart").document(auth.getCurrentUser().getUid())
                 .collection("user").add(cartMap).addOnCompleteListener(task -> {
             Toast.makeText(this, "Added to cart!", Toast.LENGTH_SHORT).show();
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menu_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this, RegisterActivity.class));
+            finish();
+
+        } else if (id == R.id.menu_my_cart) {
+            startActivity(new Intent(this, CartActivity.class));
+        }
+
+        return true;
     }
 }

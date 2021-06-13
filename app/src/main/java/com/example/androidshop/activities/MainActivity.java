@@ -91,10 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void logout(View view) {
-        firebaseAuth.signOut();
-    }
-
     public void prepareCategories() {
         RecyclerView categoryRecycler = findViewById(R.id.categoryRecycler);
         categoryRecycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
