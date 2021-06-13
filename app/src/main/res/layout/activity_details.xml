@@ -7,14 +7,14 @@
     tools:context=".activities.DetailsActivity">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/details_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/lightBlue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/detailed_toolbar"
-        android:background="@color/lightBlue"
-        app:title="Product details" />
+        app:title="details" />
 
     <ImageView
         android:id="@+id/detailed_img"
@@ -24,7 +24,7 @@
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailed_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/details_toolbar" />
 
 
     <androidx.cardview.widget.CardView
@@ -60,18 +60,6 @@
                     android:textColor="@color/black"
                     android:textSize="25sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_toStartOf="@+id/my_rating"
-                    android:fontFamily="@font/aladin"
-                    android:text="4.0"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
 
                 <RatingBar
                     android:id="@+id/my_rating"

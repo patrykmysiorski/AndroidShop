@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.androidshop.MainActivity;
 import com.example.androidshop.R;
 import com.google.firebase.auth.FirebaseAuth;
 

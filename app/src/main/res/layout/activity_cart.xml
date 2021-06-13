@@ -4,25 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.CategoryActivity">
+    tools:context=".activities.CartActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/activity_toolbar"
+        android:id="@+id/cart_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/lightBlue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="All items" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categoryOverview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_toolbar" />
+        app:title="Cart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

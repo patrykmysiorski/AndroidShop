@@ -1,10 +1,15 @@
-package com.example.androidshop;
+package com.example.androidshop.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.androidshop.R;
 import com.example.androidshop.adapters.CategoryAdapter;
 import com.example.androidshop.adapters.ProductAdapter;
 import com.example.androidshop.models.Category;
@@ -31,9 +37,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.home_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_icon);
+
         prepareImageSlider();
         prepareCategories();
         getProducts();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menu_logout) {
+            firebaseAuth.signOut();
+            startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+            finish();
+
+        } else if (id == R.id.menu_my_cart) {
+            startActivity(new Intent(MainActivity.this, CartActivity.class));
+        }
+
+        return true;
     }
 
     private void getProducts() {

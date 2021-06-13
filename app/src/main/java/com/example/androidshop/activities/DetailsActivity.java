@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.androidshop.R;
@@ -33,6 +34,16 @@ public class DetailsActivity extends AppCompatActivity {
 
         Object object = getIntent().getSerializableExtra("product");
         Product product = (Product) object;
+
+        Toolbar toolbar = findViewById(R.id.details_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(((Product) object).getName());
+        toolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
+
+
 
         ImageView image = findViewById(R.id.detailed_img);
         quantity = findViewById(R.id.quantity);
